@@ -79,5 +79,5 @@ CREATE TABLE `branding_assets` (
 ---
 
 📘 **Autor:** nyshimura  
-🛠️ **Tecnologias:** React, JSZip, PHP, MySQL  
+🛠️ **Tecnologias:** JS Vanilla, JSZip, PHP, MySQL  
 📦 **Arquivos principais:** `index.html`, `index.js`, `index.css`, `api.php`
