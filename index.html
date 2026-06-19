@@ -4,19 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Editor de Imagens TPC-Telas</title>
-    <link rel="stylesheet" href="seu-subpath/index.css" />
+    <link rel="stylesheet" href="./index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="root"></div>
-    
-    <!-- Carrega as bibliotecas e o script da aplicação no final do body para garantir a ordem correta de execução -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Loading View -->
+    <div id="loading-view" class="loading-view">Carregando...</div>
+
+    <!-- App View -->
+    <div id="app-view" class="app-container" style="display: none;">
+      <header class="app-header">
+        <div>
+          <img id="app-logo-img" src="" alt="TPC-Telas" class="app-logo" style="display: none;" />
+          <h1 id="app-logo-text" style="display: none;">TPC-Telas</h1>
+          <p>Aplique marcas d'água e branding em suas imagens em massa.</p>
+        </div>
+        <button class="btn-icon settings-button" id="btn-open-settings" aria-label="Configurações">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        </button>
+      </header>
+      <main>
+        <div class="controls">
+          <div class="input-group">
+              <label for="item-name">Modelo do Caminhão/Utilitário</label>
+              <input id="item-name" type="text" placeholder="Preenchido a partir do nome da pasta ou insira manualmente" />
+            </div>
+          <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Arraste e solte uma pasta aqui, ou clique para selecionar">
+            <p>Arraste e solte uma pasta ou arquivos aqui, ou clique para selecionar</p>
+            <input type="file" id="file-input" multiple accept="image/png, image/jpeg" style="display: none;" webkitdirectory="true" />
+          </div>
+        </div>
+        
+        <div id="previews-container" style="display: none;">
+          <h3 id="previews-title">Preview das Imagens (0)</h3>
+          <div id="previews-grid" class="image-preview-grid"></div>
+        </div>
+
+        <div class="button-group" style="margin-top: 2rem;">
+          <button id="btn-process" class="btn btn-primary" disabled>Processar Imagens</button>
+          <button id="btn-reset" class="btn btn-secondary">Resetar</button>
+        </div>
+      </main>
+    </div>
+
+    <!-- Settings View -->
+    <div id="settings-view" class="asset-uploader-container" style="display: none;">
+      <header>
+          <h1>Configurações</h1>
+          <p>Atualize suas imagens de marca e salve-as no servidor.</p>
+      </header>
+
+      <div class="asset-grid">
+          <div class="asset-upload-box">
+              <h3>Logo</h3>
+              <div class="asset-preview"><img id="preview-logo" style="display:none;" /> <span id="span-logo">Preview</span></div>
+              <input type="file" id="asset-input-logo" data-key="logo" accept="image/png" style="display: none;" />
+              <label for="asset-input-logo" class="btn btn-secondary">Carregar Imagem</label>
+          </div>
+          <div class="asset-upload-box">
+              <h3>Marca D'água</h3>
+              <div class="asset-preview"><img id="preview-watermark" style="display:none;" /> <span id="span-watermark">Preview</span></div>
+              <input type="file" id="asset-input-watermark" data-key="watermark" accept="image/png" style="display: none;" />
+              <label for="asset-input-watermark" class="btn btn-secondary">Carregar Imagem</label>
+          </div>
+          <div class="asset-upload-box">
+              <h3>Selo Preto</h3>
+              <div class="asset-preview"><img id="preview-blackShield" style="display:none;" /> <span id="span-blackShield">Preview</span></div>
+              <input type="file" id="asset-input-blackShield" data-key="blackShield" accept="image/png" style="display: none;" />
+              <label for="asset-input-blackShield" class="btn btn-secondary">Carregar Imagem</label>
+          </div>
+          <div class="asset-upload-box">
+              <h3>Selo Branco</h3>
+              <div class="asset-preview"><img id="preview-whiteShield" style="display:none;" /> <span id="span-whiteShield">Preview</span></div>
+              <input type="file" id="asset-input-whiteShield" data-key="whiteShield" accept="image/png" style="display: none;" />
+              <label for="asset-input-whiteShield" class="btn btn-secondary">Carregar Imagem</label>
+          </div>
+      </div>
+      
+      <div class="settings-actions">
+        <div class="button-group">
+          <button id="btn-back-to-app" class="btn btn-secondary">Voltar ao App</button>
+          <button id="btn-save-settings" class="btn btn-primary">Salvar Alterações no Servidor</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Processing View -->
+    <div id="processing-view" class="processing-view" style="display: none;">
+      <p>Processando imagens, por favor aguarde...</p>
+      <div class="progress-bar"><div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div></div>
+      <p id="progress-text">0%</p>
+    </div>
+
+    <!-- Results View -->
+    <div id="results-view" class="results-section" style="display: none;">
+      <h2>Processamento Concluído!</h2>
+      <div class="button-group">
+          <button id="btn-download-zip" class="btn btn-success">Baixar Todas como ZIP (0)</button>
+          <button id="btn-start-over" class="btn btn-secondary">Começar de Novo</button>
+      </div>
+      <div id="results-grid" class="results-grid"></div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="seu-subpath/index.js" type="text/babel"></script>
+    <script src="./index.js"></script>
   </body>
 </html>

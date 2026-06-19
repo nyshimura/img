@@ -1,83 +1,20 @@
-# 🖼️ Editor Web — Aplicador de Marca d’Água, Logo e Selo
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-Editor web que aplica **marca d'água**, **logo** e **selo** às imagens em massa.  
-Frontend em **React** (puro / TypeScript disponível), utiliza **JSZip** para compactar os resultados e um **endpoint PHP** (`api.php`) para carregar e salvar imagens de branding.
+# Run and deploy your AI Studio app
 
----
+This contains everything you need to run your app locally.
 
-## ⚙️ 1. `index.js` (versão JS)
+View your app in AI Studio: https://ai.studio/apps/drive/1rjf_YXkz8_Tc0HJmCEhsZp9gyLoUqaC6
 
-**Arquivo:** `img/index.js`  
-**Variável a alterar:** `API_URL`
+## Run Locally
 
-### 📍 Local (exemplo no código)
-```js
-// MUDAR ESTE VALOR para o endpoint do seu servidor
-const API_URL = 'https://meu-dominio.com/api.php';
-```
+**Prerequisites:**  Node.js
 
-### 🧭 O que fazer
-Substituir pelo endereço correspondente ao seu servidor local ou remoto, por exemplo:
 
-```bash
-http://localhost/meu-projeto/api.php
-```
-ou
-```bash
-https://meu-dominio.com/api.php
-```
-
----
-
-## 🧩 2. `index.html` — Caminhos de assets
-
-**Arquivo:** `index.html`
-
-### 📍 Trecho relevante (exemplo)
-```html
-<link rel="stylesheet" href="/img/index.css" />
-<script src="/img/index.js" type="text/babel"></script>
-```
-
-### 🧭 O que fazer
-Se você for servir os assets em outra pasta, ajuste os caminhos para **relativos** (recomendado) ou para o **prefixo correto do servidor**.
-
-**Exemplos:**
-```html
-<link rel="stylesheet" href="./img/index.css" />
-<script src="./img/index.js" type="text/babel"></script>
-```
-ou
-```html
-<link rel="stylesheet" href="/seu-subpath/img/index.css" />
-```
-
----
-
-## 🗄️ 3. Criar o Banco de Dados
-
-Crie a tabela abaixo para armazenar as imagens de marca (branding) utilizadas no sistema.
-
-```sql
-CREATE TABLE `branding_assets` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `logo` MEDIUMTEXT NOT NULL,
-  `watermark` MEDIUMTEXT NOT NULL,
-  `black_shield` MEDIUMTEXT NOT NULL,
-  `white_shield` MEDIUMTEXT NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-```
-
----
-
-## 💡 Observação
-
-> Após clonar o repositório, lembre-se de editar os caminhos acima para os **seus próprios** valores (URLs, pastas e configurações locais).  
-> Isso garante que o projeto funcione corretamente no seu ambiente e não dependa dos caminhos do desenvolvedor original.
-
----
-
-📘 **Autor:** nyshimura  
-🛠️ **Tecnologias:** React, JSZip, PHP, MySQL  
-📦 **Arquivos principais:** `index.html`, `index.js`, `index.css`, `api.php`
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

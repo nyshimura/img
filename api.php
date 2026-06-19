@@ -5,9 +5,9 @@
 
 // --- INFORMAÇÕES DO BANCO DE DADOS (fornecidas por você) ---
 $servername = "localhost";
-$username   = "usernamedoBD";
-$password   = "senhadoBD";
-$dbname     = "nomedoBD";
+$username   = "USSERNAME";
+$password   = "SENHA";
+$dbname     = "NOMEDOBD";
 
 // --- CABEÇALHOS DA API ---
 // Permite que seu aplicativo acesse este script (CORS)

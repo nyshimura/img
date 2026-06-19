@@ -1,5 +1,5 @@
 {
-  "name": "Editor de Imagens",
-  "description": "Edite e aplique marcas d'água em imagens em massa.",
+  "name": "Editor de Imagens TPC",
+  "description": "Edite e aplique marcas d'água em imagens em massa para a TPC Telas.",
   "requestFramePermissions": []
 }
