@@ -1,7 +1,7 @@
 # 🖼️ Editor Web — Aplicador de Marca d’Água, Logo e Selo
 
 Editor web que aplica **marca d'água**, **logo** e **selo** às imagens em massa.  
-Frontend em **React** (puro / TypeScript disponível), utiliza **JSZip** para compactar os resultados e um **endpoint PHP** (`api.php`) para carregar e salvar imagens de branding.
+Frontend em **JS Vanilla**, utiliza **JSZip** para compactar os resultados e um **endpoint PHP** (`api.php`) para carregar e salvar imagens de branding.
 
 ---
 
